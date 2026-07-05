@@ -26,8 +26,7 @@ def _run_palette_set(args) -> None:
               file=sys.stderr)
     slug = args.out or f"gutenberg-top-{n}"
     path = f"{slug}.png"
-    render_palette_set(rows, f"the Gutenberg Top {n}", path,
-                       credit=args.credit, width=args.width)
+    render_palette_set(rows, path, width=args.width)
     print(f"Wrote {path}", file=sys.stderr)
 
 
@@ -54,8 +53,6 @@ def main(argv: list[str] | None = None) -> None:
                         "default: html)")
     parser.add_argument("--width", type=int, default=1500,
                         help="PNG width in pixels (default: 1500)")
-    parser.add_argument("--credit", default="bookviz",
-                        help="credit line, bottom-left of the poster")
     parser.add_argument("--google-api-key",
                         default=os.environ.get("GOOGLE_BOOKS_API_KEY"),
                         help="Google Books API key for metadata enrichment "
@@ -90,8 +87,7 @@ def main(argv: list[str] | None = None) -> None:
 
     if args.viz == "skyline":
         path = f"{slug}-skyline.png" if not args.out else f"{args.out}.png"
-        render_skyline(book.text, title, path,
-                       credit=args.credit, width=args.width)
+        render_skyline(book.text, title, path, width=args.width)
         print(f"Wrote {path}", file=sys.stderr)
         return
 
@@ -111,11 +107,11 @@ def main(argv: list[str] | None = None) -> None:
     if "html" in formats:
         path = f"{slug}.html"
         with open(path, "w", encoding="utf-8") as f:
-            f.write(render_html(matches, title, credit=args.credit))
+            f.write(render_html(matches, title))
         print(f"Wrote {path}", file=sys.stderr)
     if "png" in formats:
         path = f"{slug}.png"
-        render_png(matches, title, path, credit=args.credit, width=args.width)
+        render_png(matches, title, path, width=args.width)
         print(f"Wrote {path}", file=sys.stderr)
 
 

@@ -50,7 +50,7 @@ pip install ".[png]"
 bookviz "The Wonderful Wizard of Oz" --format png --width 2000
 ```
 
-Options: `--viz colors|skyline`, `--top N` (palette-set poster), `--out` (output path without extension), `--width` (PNG pixels), `--credit` (bottom-left credit line), `--google-api-key` (see below).
+Options: `--viz colors|skyline`, `--top N` (palette-set poster), `--out` (output path without extension), `--width` (PNG pixels), `--google-api-key` (see below).
 
 ## How it works
 
@@ -65,6 +65,23 @@ The Google Books API serves **metadata and preview snippets only** — it never 
 ## More poster ideas
 
 See [IDEAS.md](IDEAS.md) for a brainstorm of similar poster-style visualizations for books, movies, and TV.
+
+## Gallery: the Gutenberg Top 10
+
+Both posters for each of the 10 most-downloaded books on Project Gutenberg.
+
+| | every color in | sentence-length skyline |
+|---|---|---|
+| **Moby Dick** | ![](examples/moby-dick.png) | ![](examples/moby-dick-skyline.png) |
+| **Pride and Prejudice** | ![](examples/pride-and-prejudice.png) | ![](examples/pride-and-prejudice-skyline.png) |
+| **Romeo and Juliet** | ![](examples/romeo-and-juliet.png) | ![](examples/romeo-and-juliet-skyline.png) |
+| **The City of God, Volume I** | ![](examples/the-city-of-god--volume-i.png) | ![](examples/the-city-of-god--volume-i-skyline.png) |
+| **A Room with a View** | ![](examples/a-room-with-a-view.png) | ![](examples/a-room-with-a-view-skyline.png) |
+| **Crime and Punishment** | ![](examples/crime-and-punishment.png) | ![](examples/crime-and-punishment-skyline.png) |
+| **Alice's Adventures in Wonderland** | ![](examples/alice-s-adventures-in-wonderland.png) | ![](examples/alice-s-adventures-in-wonderland-skyline.png) |
+| **The Count of Monte Cristo** | ![](examples/the-count-of-monte-cristo.png) | ![](examples/the-count-of-monte-cristo-skyline.png) |
+| **Middlemarch** | ![](examples/middlemarch.png) | ![](examples/middlemarch-skyline.png) |
+| **Frankenstein** | ![](examples/frankenstein.png) | ![](examples/frankenstein-skyline.png) |
 
 ## License
 

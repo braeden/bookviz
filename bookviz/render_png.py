@@ -40,7 +40,6 @@ def render_png(
     matches: list[ColorMatch],
     title: str,
     out_path: str,
-    credit: str = "bookviz",
     width: int = 1500,
 ) -> None:
     try:
@@ -91,7 +90,7 @@ def render_png(
     if cur:
         lines.append(cur)
 
-    footer_h = int(width * 0.12)
+    footer_h = int(width * 0.09)
     height = margin + len(lines) * line_h + footer_h + margin
     img = Image.new("RGB", (width, height), BG)
     draw = ImageDraw.Draw(img)
@@ -108,20 +107,11 @@ def render_png(
             x += w + gap
         y += line_h
 
-    # Footer: credit bottom-left, caption bottom-right.
-    kicker_font = _load_font(int(width * 0.019))
+    # Footer: just the title, bottom-right.
     title_font = _load_font(int(width * 0.042))
-    credit_font = _load_font(int(width * 0.014))
-
     title_w = int(measure.textlength(title, font=title_font))
-    kicker_w = int(measure.textlength("every color in", font=kicker_font))
     baseline = height - margin
     draw.text((width - margin - title_w, baseline - title_font.size), title,
               font=title_font, fill=FG)
-    draw.text((width - margin - kicker_w,
-               baseline - title_font.size - int(kicker_font.size * 1.6)),
-              "every color in", font=kicker_font, fill=FG)
-    draw.text((margin, baseline - credit_font.size), credit,
-              font=credit_font, fill=FG)
 
     img.save(out_path)

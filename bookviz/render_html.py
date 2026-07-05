@@ -42,24 +42,17 @@ _TEMPLATE = """<!doctype html>
     padding-top: 3em;
     display: flex;
     align-items: flex-end;
-    justify-content: space-between;
+    justify-content: flex-end;
     color: #fff;
   }}
-  .credit {{ font-weight: 700; font-size: clamp(12px, 1.3vw, 20px); }}
-  .caption {{ text-align: right; }}
-  .caption .kicker {{ font-weight: 700; font-size: clamp(14px, 1.8vw, 27px); }}
-  .caption .title {{ font-weight: 800; font-size: clamp(26px, 4.2vw, 64px); letter-spacing: -0.02em; }}
+  .title {{ font-weight: 800; font-size: clamp(26px, 4.2vw, 64px); letter-spacing: -0.02em; }}
 </style>
 </head>
 <body>
 <div class="poster">
   <div class="words">{words}</div>
   <div class="footer">
-    <div class="credit">{credit_esc}</div>
-    <div class="caption">
-      <div class="kicker">every color in</div>
-      <div class="title">{title_esc}</div>
-    </div>
+    <div class="title">{title_esc}</div>
   </div>
 </div>
 </body>
@@ -67,7 +60,7 @@ _TEMPLATE = """<!doctype html>
 """
 
 
-def render_html(matches: list[ColorMatch], title: str, credit: str = "bookviz") -> str:
+def render_html(matches: list[ColorMatch], title: str) -> str:
     spans = []
     last = len(matches) - 1
     for i, m in enumerate(matches):
@@ -78,5 +71,4 @@ def render_html(matches: list[ColorMatch], title: str, credit: str = "bookviz") 
     return _TEMPLATE.format(
         words=" ".join(spans),
         title_esc=html.escape(title),
-        credit_esc=html.escape(credit),
     )

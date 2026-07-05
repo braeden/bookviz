@@ -44,7 +44,6 @@ def render_skyline(
     text: str,
     title: str,
     out_path: str,
-    credit: str = "bookviz",
     width: int = 1500,
 ) -> None:
     try:
@@ -65,7 +64,7 @@ def render_skyline(
     row_h = int(width * 0.075)
     row_gap = int(row_h * 0.28)
 
-    footer_h = int(width * 0.12)
+    footer_h = int(width * 0.09)
     height = margin + len(rows) * (row_h + row_gap) + footer_h + margin
     img = Image.new("RGB", (width, height), BG)
     draw = ImageDraw.Draw(img)
@@ -80,24 +79,10 @@ def render_skyline(
                            fill=BAR.get(term, BAR["."]))
         y = base + row_gap
 
-    kicker_font = _load_font(int(width * 0.019))
     title_font = _load_font(int(width * 0.042))
-    credit_font = _load_font(int(width * 0.014))
     baseline = height - margin
     title_w = draw.textlength(title, font=title_font)
-    kicker = "sentence-length skyline of"
-    kicker_w = draw.textlength(kicker, font=kicker_font)
     draw.text((width - margin - title_w, baseline - title_font.size), title,
               font=title_font, fill=FG)
-    draw.text((width - margin - kicker_w,
-               baseline - title_font.size - int(kicker_font.size * 1.6)),
-              kicker, font=kicker_font, fill=FG)
-    note = f"{len(sentences):,} sentences · one bar each · height = words · "
-    draw.text((margin, baseline - credit_font.size), credit,
-              font=credit_font, fill=FG)
-    note_font = credit_font
-    draw.text((margin, baseline - int(credit_font.size * 3)),
-              note + "questions blue · exclamations gold",
-              font=note_font, fill="#8c8c8c")
 
     img.save(out_path)
