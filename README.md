@@ -33,7 +33,7 @@ python3 -m bookviz --top 20
 
 ## Sentence-length skyline
 
-One bar per sentence, height = word count, wrapped into rows. Questions are blue, exclamations gold. You can see Moby Dick's structure at a glance — the flat stretch at the top is the "Extracts" front matter of one-line quotations before Melville's prose kicks in:
+One bar per sentence, height = word count, wrapped into rows. Questions are blue, exclamations gold. Tables of contents, chapter headings, and other all-caps front matter are stripped first so only prose sentences count:
 
 ![sentence-length skyline of Moby Dick](examples/moby-dick-skyline.png)
 

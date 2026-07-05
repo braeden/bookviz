@@ -21,6 +21,36 @@ _ABBREV = {
 
 _SPLIT_RE = re.compile(r'([.!?])["\')\]]*\s+(?=["\'(\[]?[A-Z])')
 
+# "Chapter 1. Marseilles—The Arrival", "VOLUME ONE", "XII.", "Contents" —
+# table-of-contents entries and section headings, not prose.
+_HEADING_RE = re.compile(
+    r"^\s*(?:"
+    r"(?:CHAPTER|Chapter|VOLUME|Volume|BOOK|Book|PART|Part|ACT|SCENE|"
+    r"LETTER|Letter|STAVE|Stave|CANTO|Canto)\s+[\dIVXLCDM]+\b.*"
+    r"|[IVXLCDM]+\.?|\d+\.?"
+    r"|Contents|CONTENTS"
+    r")\s*$"
+)
+
+
+def strip_headings(text: str) -> str:
+    """Remove ToC entries, chapter headings, and all-caps title lines.
+
+    Gutenberg texts open with a table of contents (Moby Dick lists 135
+    chapters) whose entries would otherwise read as hundreds of tiny
+    consecutive "sentences" at the start of the skyline.
+    """
+    kept = []
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped and _HEADING_RE.match(stripped):
+            continue
+        has_alpha = any(c.isalpha() for c in stripped)
+        if has_alpha and stripped == stripped.upper():
+            continue  # all-caps heading or attribution line
+        kept.append(line)
+    return "\n".join(kept)
+
 
 def split_sentences(text: str) -> list[tuple[int, str]]:
     """Return (word_count, end_punctuation) per sentence."""
@@ -52,7 +82,7 @@ def render_skyline(
         raise SystemExit("skyline output requires Pillow: pip install pillow")
     from .render_png import _load_font
 
-    sentences = split_sentences(text)
+    sentences = split_sentences(strip_headings(text))
     margin = int(width * 0.045)
     usable = width - 2 * margin
 
